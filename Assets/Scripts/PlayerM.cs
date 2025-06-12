@@ -9,11 +9,15 @@ public class PlayerM : MonoBehaviour
     private Animator boktoAnimator;
     private Rigidbody boktoRB;
     public float playerSpeed;
+
     Vector3 start;
-    Vector3 up;
     Vector3 end;
-    Vector3 down;
-    public float boktoRotate;
+   
+    
+    public Transform target;
+    
+    public Vector3 jump;
+   
 
 
    
@@ -29,6 +33,7 @@ public class PlayerM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.Translate(Vector3.forward * playerSpeed);
         boktoRB.velocity = new Vector3(boktoRB.velocity.x, boktoRB.velocity.y, playerSpeed);
 
         if(Input.GetMouseButtonDown(0))
@@ -46,19 +51,19 @@ public class PlayerM : MonoBehaviour
     {
      var xDisplace = start.x - end.x;
      var yDisplace = start.y - end.y;
-
+        
         if ( Mathf.Abs(xDisplace) > Mathf.Abs(yDisplace)) 
         {
 
             if (start.x - end.x < 0)
             {
-                boktoRB.transform.eulerAngles = new Vector3(0f, 90f, 0f);
+                boktoRB.transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + 90f, 0f);
                 boktoRB.velocity = new Vector3(playerSpeed, boktoRB.velocity.y,0);
                 Debug.Log("right");
             }
             else
             {
-                boktoRB.transform.eulerAngles = new Vector3(0f, -90f, 0f);
+                boktoRB.transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + -90f, 0f);
                 boktoRB.velocity = new Vector3(-playerSpeed, boktoRB.velocity.y, 0);
                 Debug.Log("left");
             }
@@ -68,14 +73,22 @@ public class PlayerM : MonoBehaviour
 
             if (start.y - end.y < 0)
             {
-
                 Debug.Log("up");
+                boktoRB.AddForce(jump, ForceMode.Impulse);
             }
             else
             {
                 Debug.Log("down");
+
             }
         }
-        transform.Rotate(0f, boktoRotate * Time.deltaTime, 0f);
+
+        /*Vector3 direction = target.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnRotate *  Time.deltaTime);
+       */
+       
+        
     }
+
 }   
