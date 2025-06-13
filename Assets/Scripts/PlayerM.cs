@@ -12,18 +12,15 @@ public class PlayerM : MonoBehaviour
 
     Vector3 start;
     Vector3 end;
-   
-    
-    public Transform target;
-    
+
     public Vector3 jump;
-   
+
+    public GameObject currentPath;
 
 
-   
-  
 
-     // Start is called before the first frame update
+
+    // Start is called before the first frame update
     void Start()
     {
         boktoAnimator = GetComponent<Animator>();
@@ -36,11 +33,11 @@ public class PlayerM : MonoBehaviour
         transform.Translate(Vector3.forward * playerSpeed);
         boktoRB.velocity = new Vector3(boktoRB.velocity.x, boktoRB.velocity.y, playerSpeed);
 
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             start = Input.mousePosition;
         }
-        else if(Input.GetMouseButtonUp(0))
+        else if (Input.GetMouseButtonUp(0))
         {
             end = Input.mousePosition;
             Swipe();
@@ -49,16 +46,16 @@ public class PlayerM : MonoBehaviour
 
     void Swipe()
     {
-     var xDisplace = start.x - end.x;
-     var yDisplace = start.y - end.y;
-        
-        if ( Mathf.Abs(xDisplace) > Mathf.Abs(yDisplace)) 
+        var xDisplace = start.x - end.x;
+        var yDisplace = start.y - end.y;
+
+        if (Mathf.Abs(xDisplace) > Mathf.Abs(yDisplace))
         {
 
             if (start.x - end.x < 0)
             {
                 boktoRB.transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + 90f, 0f);
-                boktoRB.velocity = new Vector3(playerSpeed, boktoRB.velocity.y,0);
+                boktoRB.velocity = new Vector3(playerSpeed, boktoRB.velocity.y, 0);
                 Debug.Log("right");
             }
             else
@@ -68,7 +65,7 @@ public class PlayerM : MonoBehaviour
                 Debug.Log("left");
             }
         }
-        else 
+        else
         {
 
             if (start.y - end.y < 0)
@@ -78,12 +75,18 @@ public class PlayerM : MonoBehaviour
             }
             else
             {
-                Debug.Log("down");
-
+                Debug.Log("down/ Slide");
+                boktoAnimator.SetTrigger("slide");
+                   
             }
         }
-                                 
+
     }
-   
-   
-}   
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        currentPath = collision.transform.parent.gameObject;
+        Debug.Log(currentPath);
+    }
+
+}
