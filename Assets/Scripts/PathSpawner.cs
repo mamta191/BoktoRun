@@ -12,6 +12,7 @@ public class PathSpawner : MonoBehaviour
 
 
    private int nextIndex;
+   private int currentIndex;
 
   private GameObject runningPoint;
 
@@ -20,10 +21,7 @@ public class PathSpawner : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
-    {
-        paths[1].transform.position =  spawnPoint.transform.position;
-    }
+   
 
     private void Update()
     {
@@ -35,12 +33,18 @@ public class PathSpawner : MonoBehaviour
     }
 
     public void PathChanger()
-   {
-        nextIndex = Random.Range(0, paths.Count);
+    {
+        do
+        {
+            nextIndex = Random.Range(0, paths.Count);
+        }
+        while (nextIndex == currentIndex);
+
+
         paths[nextIndex].transform.position = spawnPoint.transform.position;
 
-       
-        runningPoint  =  player.currentPath;
+
+        runningPoint = player.currentPath;
         spawnPoint = paths[nextIndex].transform.GetChild(1).gameObject;
-   }
+    }
 }
