@@ -30,8 +30,11 @@ public class PlayerM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * playerSpeed);
-        boktoRB.velocity = new Vector3(boktoRB.velocity.x, boktoRB.velocity.y, playerSpeed);
+       // transform.Translate(Vector3.forward * playerSpeed);
+       // boktoRB.velocity = new Vector3(boktoRB.velocity.x, boktoRB.velocity.y, playerSpeed);
+
+        var x = Vector3.forward + Vector3.up * boktoRB.velocity.y;
+        transform.Translate(x * playerSpeed* Time.deltaTime);
 
         if (Input.GetMouseButtonDown(0))
         {
