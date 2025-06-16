@@ -11,10 +11,10 @@ public class PathSpawner : MonoBehaviour
    [SerializeField] private PlayerM player;
 
 
-   private int nextIndex;
-   private int currentIndex;
+    [SerializeField] private int nextIndex;
+    [SerializeField] private int currentIndex;
 
-  private GameObject runningPoint;
+    [SerializeField] private GameObject runningPoint;
 
 
 
@@ -40,6 +40,10 @@ public class PathSpawner : MonoBehaviour
         }
         while (nextIndex == currentIndex);
 
+        Debug.Log(nextIndex);
+
+
+        currentIndex = nextIndex;
 
         paths[nextIndex].transform.position = spawnPoint.transform.position;
 

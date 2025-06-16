@@ -54,14 +54,16 @@ public class PlayerM : MonoBehaviour
 
             if (start.x - end.x < 0)
             {
-                boktoRB.transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + 90f, 0f);
-                boktoRB.velocity = new Vector3(playerSpeed, boktoRB.velocity.y, 0);
+                boktoAnimator.transform.Rotate(new Vector3(0, 90,0));   
+               // boktoRB.transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + 90f, 0f);
+               // boktoRB.velocity = new Vector3(playerSpeed, boktoRB.velocity.y, 0);
                 Debug.Log("right");
             }
             else
             {
-                boktoRB.transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + -90f, 0f);
-                boktoRB.velocity = new Vector3(-playerSpeed, boktoRB.velocity.y, 0);
+                boktoAnimator.transform.Rotate(new Vector3(0, -90, 0));
+                // boktoRB.transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + -90f, 0f);
+                //boktoRB.velocity = new Vector3(-playerSpeed, boktoRB.velocity.y, 0);
                 Debug.Log("left");
             }
         }
@@ -85,8 +87,12 @@ public class PlayerM : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        currentPath = collision.transform.parent.gameObject;
-        Debug.Log(currentPath);
+        if (collision.gameObject.CompareTag("ground"))
+        {
+            currentPath = collision.transform.parent.gameObject;
+            Debug.Log(currentPath);
+        }
+       
     }
 
 }
