@@ -92,7 +92,7 @@ public class PlayerM : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("ground"))
         {
-            currentPath = collision.transform.parent.gameObject;
+            currentPath = collision.transform.parent.parent.gameObject;
             Debug.Log(currentPath);
         }
        
