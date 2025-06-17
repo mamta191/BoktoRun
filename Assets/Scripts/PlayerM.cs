@@ -81,7 +81,7 @@ public class PlayerM : MonoBehaviour
             else
             {
                 Debug.Log("down/ Slide");
-              //boktoAnimator.SetTrigger("slide");
+               boktoAnimator.SetTrigger("slide");
                    
             }
         }

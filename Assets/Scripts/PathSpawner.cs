@@ -11,17 +11,11 @@ public class PathSpawner : MonoBehaviour
    [SerializeField] private PlayerM player;
 
 
-    [SerializeField] private int nextIndex;
-    [SerializeField] private int currentIndex;
+    private int nextIndex;
+    private int currentIndex;
 
-    [SerializeField] private GameObject runningPoint;
+    private GameObject runningPoint;
 
-
-
-
-
-    // Start is called before the first frame update
-   
 
     private void Update()
     {
