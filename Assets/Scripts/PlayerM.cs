@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using UnityEngine.XR;
 
 public class PlayerM : MonoBehaviour
 {
+    bool Alive = true;
     private Animator boktoAnimator;
     private Rigidbody boktoRB;
+    private CapsuleCollider playerCollider;
     public float playerSpeed;
 
     Vector3 start;
@@ -25,16 +28,30 @@ public class PlayerM : MonoBehaviour
     {
         boktoAnimator = GetComponent<Animator>();
         boktoRB = GetComponent<Rigidbody>();
+        playerCollider = GetComponent<CapsuleCollider>();
+
+      
     }
+  
+
 
     // Update is called once per frame
     void Update()
     {
-       // transform.Translate(Vector3.forward * playerSpeed);
-       // boktoRB.velocity = new Vector3(boktoRB.velocity.x, boktoRB.velocity.y, playerSpeed);
+        // transform.Translate(Vector3.forward * playerSpeed);
+        // boktoRB.velocity = new Vector3(boktoRB.velocity.x, boktoRB.velocity.y, playerSpeed);
 
+
+        if (!Alive) return;
         var x = Vector3.forward + Vector3.up * boktoRB.velocity.y;
         transform.Translate(x * playerSpeed* Time.deltaTime);
+
+        
+        if (transform.position.y < -5)
+        {
+                Die();
+        }
+        
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -95,7 +112,42 @@ public class PlayerM : MonoBehaviour
             currentPath = collision.transform.parent.parent.gameObject;
             Debug.Log(currentPath);
         }
+        if(collision.gameObject.CompareTag("obstacles"))
+        {
+            boktoAnimator.SetTrigger("die");
+            Die();
+            
+        }
+
        
     }
+     
+    public void Collider()
+    {
+        playerCollider.height = 0.03f;
+        playerCollider.center = new Vector3(0, 0.02f, 0);
 
-}
+    }
+    public void NormalCollider()
+    {
+        playerCollider.height = 0.1056027f;
+        playerCollider.center = new Vector3(0, 0.05698607f, 0);
+    }
+
+    public void Die()
+    {
+        Alive = false;
+        boktoAnimator.SetBool("die", true);
+        Invoke("Restart", 2);
+    }
+    void Restart()
+    {
+        boktoAnimator.SetBool("die", false);
+        StartCoroutine(DelayAction());
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    IEnumerator DelayAction()
+    {
+        yield return new WaitForSeconds(3f);
+    }
+} 
