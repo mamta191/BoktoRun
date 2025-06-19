@@ -137,12 +137,13 @@ public class PlayerM : MonoBehaviour
     public void Die()
     {
         Alive = false;
-        boktoAnimator.SetBool("die", true);
+       // boktoAnimator.SetBool("die", true);
+        boktoAnimator.SetTrigger("die");
         Invoke("Restart", 2);
     }
     void Restart()
     {
-        boktoAnimator.SetBool("die", false);
+        
         StartCoroutine(DelayAction());
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
