@@ -12,6 +12,7 @@ public class PlayerM : MonoBehaviour
     private Rigidbody boktoRB;
     private CapsuleCollider playerCollider;
     public float playerSpeed;
+    public bool isJumping;
 
     Vector3 start;
     Vector3 end;
@@ -75,7 +76,7 @@ public class PlayerM : MonoBehaviour
             if (start.x - end.x < 0)
             {
                 boktoAnimator.transform.Rotate(new Vector3(0, 90,0));   
-               // boktoRB.transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + 90f, 0f);
+               //boktoRB.transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + 90f, 0f);
                // boktoRB.velocity = new Vector3(playerSpeed, boktoRB.velocity.y, 0);
                 Debug.Log("right");
             }
@@ -92,14 +93,19 @@ public class PlayerM : MonoBehaviour
 
             if (start.y - end.y < 0)
             {
-                Debug.Log("up");
-                boktoRB.AddForce(jump, ForceMode.Impulse);
+               if(isJumping)
+               {
+                    Debug.Log("up");
+                    boktoRB.AddForce(jump, ForceMode.Impulse);
+                    isJumping = false;
+               }
+
             }
             else
             {
-                Debug.Log("down");
+               Debug.Log("down");
                boktoAnimator.SetTrigger("Slide");
-                   
+                  
             }
         }
 
@@ -108,9 +114,11 @@ public class PlayerM : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("ground"))
-        {
+        {   
+            isJumping = true;
             currentPath = collision.transform.parent.parent.gameObject;
             Debug.Log(currentPath);
+           
         }
         if(collision.gameObject.CompareTag("obstacles"))
         {
@@ -139,7 +147,7 @@ public class PlayerM : MonoBehaviour
         Alive = false;
        // boktoAnimator.SetBool("die", true);
         boktoAnimator.SetTrigger("die");
-        Invoke("Restart", 2);
+        Invoke("Restart", 3f);
     }
     void Restart()
     {
