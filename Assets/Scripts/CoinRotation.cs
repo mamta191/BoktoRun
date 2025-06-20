@@ -7,6 +7,7 @@ public class CoinRotation : MonoBehaviour
 
     public float speed;
 
+
     void FixedUpdate()
     {
         RotationSpeed(speed);
@@ -19,9 +20,9 @@ public class CoinRotation : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-            if (gameObject.CompareTag("coins"))
-            {
-              Destroy(gameObject);
-            }
-    }
+        if (gameObject.CompareTag("coins"))
+        {
+            gameObject.SetActive(false);
+        }
+    }       
 }

@@ -40,9 +40,15 @@ public class PathSpawner : MonoBehaviour
         currentIndex = nextIndex;
 
         paths[nextIndex].transform.position = spawnPoint.transform.position;
-
-
+        
         runningPoint = player.currentPath;
         spawnPoint = paths[nextIndex].transform.GetChild(1).gameObject;
+
+        var CoinHolder = runningPoint.transform.GetChild(2);
+        
+        for(int i = 0; i<CoinHolder.childCount; i++)
+        {
+         CoinHolder.GetChild(i).gameObject.SetActive(true);   
+        }
     }
 }

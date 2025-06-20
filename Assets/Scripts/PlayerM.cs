@@ -17,7 +17,7 @@ public class PlayerM : MonoBehaviour
     Vector3 start;
     Vector3 end;
 
-    public Vector3 jump;
+    public float jump;
 
     public GameObject currentPath;
 
@@ -28,7 +28,7 @@ public class PlayerM : MonoBehaviour
     void Start()
     {
         boktoAnimator = GetComponent<Animator>();
-        boktoRB = GetComponent<Rigidbody>();
+        boktoRB = this.GetComponent<Rigidbody>();
         playerCollider = GetComponent<CapsuleCollider>();
 
       
@@ -41,13 +41,15 @@ public class PlayerM : MonoBehaviour
     {
         // transform.Translate(Vector3.forward * playerSpeed);
         // boktoRB.velocity = new Vector3(boktoRB.velocity.x, boktoRB.velocity.y, playerSpeed);
+        Vector3 Horizontal = transform.forward * playerSpeed;
+        boktoRB.velocity = new Vector3(Horizontal.x, boktoRB.velocity.y, Horizontal.z);
 
 
         if (!Alive) return;
-        var x = Vector3.forward + Vector3.up * boktoRB.velocity.y;
-        transform.Translate(x * playerSpeed* Time.deltaTime);
-
+        /*var x = Vector3.forward + Vector3.up * boktoRB.velocity.y;
+        transform.Translate(x * playerSpeed * Time.deltaTime);*/
         
+
         if (transform.position.y < -5)
         {
                 Die();
@@ -93,12 +95,13 @@ public class PlayerM : MonoBehaviour
 
             if (start.y - end.y < 0)
             {
-               if(isJumping)
-               {
-                    Debug.Log("up");
-                    boktoRB.AddForce(jump, ForceMode.Impulse);
-                    isJumping = false;
-               }
+                boktoRB.velocity = new Vector3(boktoRB.velocity.x, jump, boktoRB.velocity.z);
+                /*if(isJumping)
+                {
+                     Debug.Log("up");
+                     boktoRB.AddForce(jump, ForceMode.Impulse);
+                     isJumping = false;
+                }*/
 
             }
             else
