@@ -41,8 +41,8 @@ public class PlayerM : MonoBehaviour
     {
         // transform.Translate(Vector3.forward * playerSpeed);
         // boktoRB.velocity = new Vector3(boktoRB.velocity.x, boktoRB.velocity.y, playerSpeed);
-       /* Vector3 Horizontal = transform.forward * playerSpeed;
-        boktoRB.velocity = new Vector3(Horizontal.x, boktoRB.velocity.y, Horizontal.z);
+       /* Vector3 x = transform.forward * playerSpeed;
+        boktoRB.velocity = new Vector3(x.x, boktoRB.velocity.y, x.z);
 */
 
         if (!Alive) return;
@@ -124,12 +124,12 @@ public class PlayerM : MonoBehaviour
             Debug.Log(currentPath);
            
         }
-        if(collision.gameObject.CompareTag("obstacles"))
+       /* if(collision.gameObject.CompareTag("obstacles"))
         {
-            boktoAnimator.SetTrigger("die");
+          //boktoAnimator.SetTrigger("die");
            // Die();
             
-        }
+        }*/
 
        
     }
