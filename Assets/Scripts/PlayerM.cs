@@ -17,7 +17,7 @@ public class PlayerM : MonoBehaviour
     Vector3 start;
     Vector3 end;
 
-    public float jump;
+    public Vector3 jump;
 
     public GameObject currentPath;
 
@@ -41,19 +41,19 @@ public class PlayerM : MonoBehaviour
     {
         // transform.Translate(Vector3.forward * playerSpeed);
         // boktoRB.velocity = new Vector3(boktoRB.velocity.x, boktoRB.velocity.y, playerSpeed);
-        Vector3 Horizontal = transform.forward * playerSpeed;
+       /* Vector3 Horizontal = transform.forward * playerSpeed;
         boktoRB.velocity = new Vector3(Horizontal.x, boktoRB.velocity.y, Horizontal.z);
-
+*/
 
         if (!Alive) return;
-        /*var x = Vector3.forward + Vector3.up * boktoRB.velocity.y;
-        transform.Translate(x * playerSpeed * Time.deltaTime);*/
-        
+        var x = Vector3.forward + Vector3.up * boktoRB.velocity.y;
+        transform.Translate(x * playerSpeed * Time.deltaTime);
 
-        if (transform.position.y < -5)
+
+        /*if (transform.position.y < -5)
         {
                 Die();
-        }
+        }*/
         
 
         if (Input.GetMouseButtonDown(0))
@@ -95,13 +95,14 @@ public class PlayerM : MonoBehaviour
 
             if (start.y - end.y < 0)
             {
-                boktoRB.velocity = new Vector3(boktoRB.velocity.x, jump, boktoRB.velocity.z);
-                /*if(isJumping)
+                boktoRB.velocity = new Vector3(boktoRB.velocity.x, jump.y, boktoRB.velocity.z);
+
+                if (isJumping)
                 {
-                     Debug.Log("up");
-                     boktoRB.AddForce(jump, ForceMode.Impulse);
-                     isJumping = false;
-                }*/
+                    Debug.Log("up");
+                    boktoRB.AddForce(jump, ForceMode.Impulse);
+                    isJumping = false;
+                }
 
             }
             else
@@ -126,7 +127,7 @@ public class PlayerM : MonoBehaviour
         if(collision.gameObject.CompareTag("obstacles"))
         {
             boktoAnimator.SetTrigger("die");
-            Die();
+           // Die();
             
         }
 
@@ -145,13 +146,13 @@ public class PlayerM : MonoBehaviour
         playerCollider.center = new Vector3(0, 0.05698607f, 0);
     }
 
-    public void Die()
+   /* public void Die()
     {
         Alive = false;
        // boktoAnimator.SetBool("die", true);
         boktoAnimator.SetTrigger("die");
         Invoke("Restart", 3f);
-    }
+    }*/
     void Restart()
     {
         

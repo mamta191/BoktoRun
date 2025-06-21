@@ -16,11 +16,8 @@ public class Obstacles : MonoBehaviour
         if (collision.gameObject.CompareTag("obstacles"))
         {
             //KillThePlayer
-            bkMove.Die();
+          //bkMove.Die();
         }
     }
-    void Update()
-    {
-        
-    }
+   
 }
