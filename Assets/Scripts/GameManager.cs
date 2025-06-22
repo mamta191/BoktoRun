@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public int score;
     public Text scoreText;
     public Text highScore;
-    private int savesStore;
+    public int savesStore;
     public GameObject homeMenu;
     public GameObject settingMenu;
     public GameObject pauseMenu;
@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
     public GameObject musicSlash;
     public static bool reStartUi;
     public GameObject homeB;
-
+   
 
     public void IncrementScore()
     {
@@ -37,14 +37,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-   
+  
 
     public void Start()
     {
         if (reStartUi == true)
         {
 
-            AudioManager.instance.ButtonSound();
+           // AudioManager.instance.ButtonSound();
             homeMenu.SetActive(false);
             settingMenu.SetActive(false);
             pauseMenu.SetActive(false);
@@ -53,17 +53,19 @@ public class GameManager : MonoBehaviour
         else
         {
 
-            AudioManager.instance.ButtonSound();
+           // AudioManager.instance.ButtonSound();
             homeMenu.SetActive(true);
             settingMenu.SetActive(false);
             pauseMenu.SetActive(false);
             gamePlay.SetActive(false);
         }
+        savesStore = PlayerPrefs.GetInt("Highest");
+        highScore.text = savesStore.ToString();
     }
 
     public void StartGame()
     {
-        AudioManager.instance.ButtonSound();
+       // AudioManager.instance.ButtonSound();
         homeMenu.SetActive(false);
         settingMenu.SetActive(false);
         pauseMenu.SetActive(false);
@@ -94,7 +96,7 @@ public class GameManager : MonoBehaviour
     {
 
         settBack.SetActive(true);
-         AudioManager.instance.ButtonSound();
+        AudioManager.instance.ButtonSound();
         settingMenu.SetActive(false);
         homeMenu.SetActive(true);
     }
@@ -104,25 +106,19 @@ public class GameManager : MonoBehaviour
     public void MusicOn()
     {
         musicSlash.SetActive(false);
-
-
     }
     public void MusicOff()
     {
-
         musicSlash.SetActive(true);
-
     }
     public void SoundOn()
     {
         soundSlash.SetActive(false);
-
     }
 
     public void SoundOff()
     {
         soundSlash.SetActive(true);
-
     }
 
     public void Restarting()
@@ -133,11 +129,14 @@ public class GameManager : MonoBehaviour
         var sc = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(sc);
     }
+
     public void GoHome()
     {
+        AudioManager.instance.ButtonSound();
         reStartUi = false;
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+   
     }
 
 }

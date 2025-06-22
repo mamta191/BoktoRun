@@ -100,6 +100,7 @@ public class PlayerM : MonoBehaviour
                 if (isJumping)
                 {
                     Debug.Log("up");
+                    AudioManager.instance.JumpSound();
                     boktoRB.AddForce(jump, ForceMode.Impulse);
                     isJumping = false;
                 }
@@ -119,7 +120,6 @@ public class PlayerM : MonoBehaviour
         if (collision.gameObject.CompareTag("ground"))
         {   
             isJumping = true;
-            AudioManager.instance.JumpSound();
             currentPath = collision.transform.parent.parent.gameObject;
             Debug.Log(currentPath);
         }
@@ -129,6 +129,7 @@ public class PlayerM : MonoBehaviour
         {
             Debug.Log("obstacle running");
             gameObject.SetActive(false);
+            AudioManager.instance.DeadSound();
             reStartUI.SetActive(true);
         }
     }
