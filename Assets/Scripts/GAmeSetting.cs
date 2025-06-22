@@ -7,12 +7,10 @@ public class GAmeSetting : MonoBehaviour
 
     public GameObject musicStashGameObject;
     public GameObject soundStashObject;
-    public GameObject vibrationMode;
+    
+    static int musicBtnCounter;
+    static int soundBtnCounter;
 
-   static int musicBtnCounter;
-   static int soundBtnCounter;
-  static  int vibratingCounter;
-    public bool isVibrate;
     public AudioClip buttonClick;
     public AudioSource audioManager;
 
@@ -44,20 +42,6 @@ public class GAmeSetting : MonoBehaviour
             soundStashObject.SetActive(false);
            
         }
-        if (vibratingCounter % 2 != 0)
-        {
-            isVibrate = false;
-            vibrationMode.SetActive(true);
-        }
-
-        else if (vibratingCounter % 2 == 0)
-
-        {
-            isVibrate = true;
-            vibrationMode.SetActive(false);
-        }
-
-
 
     }
 
@@ -100,21 +84,7 @@ public class GAmeSetting : MonoBehaviour
             AudioManager.instance.eventSound.volume = 1f;
         }
     }
-    public void Vibration()
-    {
-        vibratingCounter++;
+   
 
-        if (vibratingCounter % 2 != 0)
-        {
-            isVibrate = false;
-            vibrationMode.SetActive(true);
-        }
-
-        else
-        {
-            isVibrate = true;
-            vibrationMode.SetActive(false);
-        }
-
-    }
+    
 }

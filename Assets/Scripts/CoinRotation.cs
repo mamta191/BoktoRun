@@ -36,8 +36,7 @@ public class CoinRotation : MonoBehaviour
     }
     public void RotationSpeed(float rotationSpeed)
     {
-        transform.Rotate(0, rotationSpeed * Time.deltaTime, 0);
-
+        transform.Rotate(0,0,rotationSpeed);
     }
 
 }
