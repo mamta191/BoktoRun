@@ -14,7 +14,7 @@ public class GAmeSetting : MonoBehaviour
     int vibratingCounter;
     public bool isVibrate;
     public AudioClip buttonClick;
-    //public AudioSource audioManager;
+    public AudioSource audioManager;
 
 
 
@@ -26,13 +26,13 @@ public class GAmeSetting : MonoBehaviour
         if (musicBtnCounter % 2 != 0)
         {
             musicStashGameObject.SetActive(true);
-          //  AudioManager.instance.bgSound.volume = 0f;
+            AudioManager.instance.bgSound.volume = 0f;
 
         }
         else
         {
             musicStashGameObject.SetActive(false);
-           // AudioManager.instance.bgSound.volume = 1f;
+            AudioManager.instance.bgSound.volume = 1f;
 
         }
 
@@ -45,17 +45,17 @@ public class GAmeSetting : MonoBehaviour
         if (soundBtnCounter % 2 != 0)
         {
             soundStashObject.SetActive(true);
-           // AudioManager.instance.eventSound.volume = 0f;
+            AudioManager.instance.eventSound.volume = 0f;
 
         }
 
         else
         {
             soundStashObject.SetActive(false);
-           // AudioManager.instance.eventSound.volume = 1f;
+            AudioManager.instance.eventSound.volume = 1f;
         }
     }
-    /*public void Vibration()
+    public void Vibration()
     {
         vibratingCounter++;
 
@@ -71,5 +71,5 @@ public class GAmeSetting : MonoBehaviour
             vibrationMode.SetActive(false);
         }
 
-    }*/
+    }
 }

@@ -21,7 +21,7 @@ public class PauseBT : MonoBehaviour
     }
     public void Play()
     {
-       // AudioManager.instance.ButtonSound();
+        AudioManager.instance.ButtonSound();
         Time.timeScale = 1;
         pauseUI.SetActive(false);
         gameC.SetActive(true);
@@ -29,13 +29,13 @@ public class PauseBT : MonoBehaviour
 
     public void Home()
     {
-       // AudioManager.instance.ButtonSound();
+        AudioManager.instance.ButtonSound();
         homeUI.SetActive(true);
         pauseUI.SetActive(false);
     }
     public void play()
     {
-        //AudioManager.instance.ButtonSound();
+        AudioManager.instance.ButtonSound();
         Time.timeScale = 0;
         playBT.SetActive(true);
     }

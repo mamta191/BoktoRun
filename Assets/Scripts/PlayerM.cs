@@ -20,6 +20,8 @@ public class PlayerM : MonoBehaviour
     public Vector3 jump;
 
     public GameObject currentPath;
+    public GameObject reStartUI;
+
 
 
 
@@ -50,11 +52,13 @@ public class PlayerM : MonoBehaviour
         transform.Translate(x * playerSpeed * Time.deltaTime);
 
 
-        /*if (transform.position.y < -5)
+        if (transform.position.y < -7)
         {
-                Die();
-        }*/
-        
+            Debug.Log("positon running");
+            gameObject.SetActive(false);
+           reStartUI.SetActive(true);
+        }
+
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -78,15 +82,11 @@ public class PlayerM : MonoBehaviour
             if (start.x - end.x < 0)
             {
                 boktoAnimator.transform.Rotate(new Vector3(0, 90,0));   
-               //boktoRB.transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + 90f, 0f);
-               // boktoRB.velocity = new Vector3(playerSpeed, boktoRB.velocity.y, 0);
                 Debug.Log("right");
             }
             else
             {
                 boktoAnimator.transform.Rotate(new Vector3(0, -90, 0));
-                // boktoRB.transform.eulerAngles = new Vector3(0f, transform.eulerAngles.y + -90f, 0f);
-                //boktoRB.velocity = new Vector3(-playerSpeed, boktoRB.velocity.y, 0);
                 Debug.Log("left");
             }
         }
@@ -103,7 +103,6 @@ public class PlayerM : MonoBehaviour
                     boktoRB.AddForce(jump, ForceMode.Impulse);
                     isJumping = false;
                 }
-
             }
             else
             {
@@ -120,47 +119,31 @@ public class PlayerM : MonoBehaviour
         if (collision.gameObject.CompareTag("ground"))
         {   
             isJumping = true;
+            AudioManager.instance.JumpSound();
             currentPath = collision.transform.parent.parent.gameObject;
             Debug.Log(currentPath);
-           
         }
-       /* if(collision.gameObject.CompareTag("obstacles"))
-        {
-          //boktoAnimator.SetTrigger("die");
-           // Die();
-            
-        }*/
 
-       
+
+        if (collision.gameObject.CompareTag("obstacles"))
+        {
+            Debug.Log("obstacle running");
+            gameObject.SetActive(false);
+            reStartUI.SetActive(true);
+        }
     }
      
     public void Collider()
     {
         playerCollider.height = 0.03f;
         playerCollider.center = new Vector3(0, 0.02f, 0);
-
     }
+
     public void NormalCollider()
     {
         playerCollider.height = 0.1056027f;
         playerCollider.center = new Vector3(0, 0.05698607f, 0);
     }
 
-   /* public void Die()
-    {
-        Alive = false;
-       // boktoAnimator.SetBool("die", true);
-        boktoAnimator.SetTrigger("die");
-        Invoke("Restart", 3f);
-    }*/
-    void Restart()
-    {
-        
-        StartCoroutine(DelayAction());
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-    IEnumerator DelayAction()
-    {
-        yield return new WaitForSeconds(3f);
-    }
+   
 } 

@@ -9,22 +9,32 @@ public class GameManager : MonoBehaviour
 
     public int score;
     public Text scoreText;
+    public Text highScore;
+    private int savesStore;
     public GameObject homeMenu;
     public GameObject settingMenu;
     public GameObject pauseMenu;
+    public GameObject reStartC;
     public GameObject gamePlay;
     public GameObject settBack;
     public GameObject soundSlash;
     public GameObject musicSlash;
     public static bool reStartUi;
-    public GameObject reStartB;
     public GameObject homeB;
 
 
     public void IncrementScore()
     {
-        score++;
+        score ++;
         scoreText.text = score.ToString();
+
+        if (score > savesStore)
+        {
+            PlayerPrefs.SetInt("Highest", score);
+
+            savesStore = PlayerPrefs.GetInt("Highest");
+            highScore.text = savesStore.ToString();
+        }
     }
 
    
@@ -34,7 +44,7 @@ public class GameManager : MonoBehaviour
         if (reStartUi == true)
         {
 
-           // AudioManager.instance.ButtonSound();
+            AudioManager.instance.ButtonSound();
             homeMenu.SetActive(false);
             settingMenu.SetActive(false);
             pauseMenu.SetActive(false);
@@ -43,7 +53,7 @@ public class GameManager : MonoBehaviour
         else
         {
 
-           // AudioManager.instance.ButtonSound();
+            AudioManager.instance.ButtonSound();
             homeMenu.SetActive(true);
             settingMenu.SetActive(false);
             pauseMenu.SetActive(false);
@@ -53,7 +63,7 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
-        //AudioManager.instance.ButtonSound();
+        AudioManager.instance.ButtonSound();
         homeMenu.SetActive(false);
         settingMenu.SetActive(false);
         pauseMenu.SetActive(false);
@@ -62,19 +72,19 @@ public class GameManager : MonoBehaviour
 
     public void SettingButtons()
     {
-        // AudioManager.instance.ButtonSound();
+         AudioManager.instance.ButtonSound();
         homeMenu.SetActive(false);
         settingMenu.SetActive(true);
     }
 
     public void QuitGame()
     {
-        //AudioManager.instance.ButtonSound();
+        AudioManager.instance.ButtonSound();
         Application.Quit();
     }
     public void SettingUI()
     {
-        //AudioManager.instance.ButtonSound();
+        AudioManager.instance.ButtonSound();
         homeMenu.SetActive(false);
         settingMenu.SetActive(true);
         pauseMenu.SetActive(false);
@@ -84,7 +94,7 @@ public class GameManager : MonoBehaviour
     {
 
         settBack.SetActive(true);
-        // AudioManager.instance.ButtonSound();
+         AudioManager.instance.ButtonSound();
         settingMenu.SetActive(false);
         homeMenu.SetActive(true);
     }
@@ -117,7 +127,7 @@ public class GameManager : MonoBehaviour
 
     public void Restarting()
     {
-        // AudioManager.instance.ButtonSound();
+        AudioManager.instance.ButtonSound();
         Time.timeScale = 1f;
         reStartUi = true;
         var sc = SceneManager.GetActiveScene().name;
