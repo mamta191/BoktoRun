@@ -52,7 +52,7 @@ public class PlayerM : MonoBehaviour
         transform.Translate(x * playerSpeed * Time.deltaTime);
 
 
-        if (transform.position.y < -7)
+        if (transform.position.y < -15)
         {
             Debug.Log("positon running");
             gameObject.SetActive(false);
