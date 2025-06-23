@@ -132,7 +132,8 @@ public class PlayerM : MonoBehaviour
             AudioManager.instance.DeadSound();
             reStartUI.SetActive(true);
         }
-    }
+       
+    }  
      
     public void Collider()
     {
