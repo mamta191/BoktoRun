@@ -15,6 +15,8 @@ public class PathSpawner : MonoBehaviour
 
     private GameObject runningPoint;
 
+   
+
 
     private void Update()
     {
