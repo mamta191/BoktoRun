@@ -12,7 +12,7 @@ public class ChangePlayernd : MonoBehaviour
     {
         if (other.gameObject == barrelP)
         {
-            boktoP.transform.position =     barrelP.transform.position;
+            boktoP.transform.position =  barrelP.transform.position;
             barrelP.SetActive(false);
             boktoP.SetActive(true);
             cam.target = boktoP.transform;
